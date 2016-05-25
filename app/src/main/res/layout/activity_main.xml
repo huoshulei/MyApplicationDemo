@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="edu.hsl.myapplicationdemo.MainActivity">
+
+    <Button
+        android:id="@+id/btn_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#ffffff"
+        android:text="你点啥"
+        android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/btn_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="点你咋滴\n你再点一个试试\n试试就试试\n你点啥\n点你咋滴\n..."
+        android:textSize="25sp"/>
+</LinearLayout>

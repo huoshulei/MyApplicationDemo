@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.hsl.myapplicationdemo.Sjfd3Activity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="绑定安全号码"
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/button2"/>
+
+    <EditText
+        android:id="@+id/et_telnum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginLeft="20dp"
+        android:layout_toStartOf="@+id/btn_txl"
+        android:hint="输入安全号码"
+        android:padding="10dp"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/btn_txl"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="从通讯录中选取"
+        android:layout_alignTop="@id/et_telnum"
+        android:layout_alignParentEnd="true"/>
+    <Button
+        android:id="@+id/btn_txl1"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="从通讯录中选取"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/btn_txl"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5sp"
+        android:onClick="initBack"
+        android:text="返回"
+        android:id="@+id/button2"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5sp"
+        android:onClick="initNext"
+        android:text="确认"
+        android:id="@+id/button"/>
+</RelativeLayout>
