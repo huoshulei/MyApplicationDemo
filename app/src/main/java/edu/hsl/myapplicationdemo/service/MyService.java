@@ -1,4 +1,4 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -10,13 +10,12 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
-import android.util.Log;
 import android.widget.Toast;
 
+import edu.hsl.myapplicationdemo.base.MyActivity;
+
 public class MyService extends Service {
-    private static final String TAG = "MyService";
     static MyActivity.Util util;
-//    String          messageBody;
 
     public MyService() {
     }
@@ -36,44 +35,39 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         util = new MyActivity().new Util();
-        String sms = intent.getStringExtra("SMS");
+        String sms       = intent.getStringExtra("SMS");
         String telnumber = util.getTelnumber(getApplicationContext(), "telnumber");
-        Log.d(TAG, "deleteSMS:000telnumber>> "+telnumber);
 //        if (!SmsWriteOpUtil.isWriteEnabled(getApplicationContext())) {
 //            SmsWriteOpUtil.setWriteEnabled(
 //                    getApplicationContext(), true);
 //        }
         deleteSMS(telnumber);
-        Log.d(TAG, "onStartCommand:sms>> " + sms);
-        switch (sms) {
+        switch (sms) {//根据获得的短信内容执行相关操作
             case "位置":
-                Log.d(TAG, "onStartCommand: 1" + sms);
                 Toast.makeText(MyService.this, "位置", Toast.LENGTH_SHORT).show();
                 break;
             case "警报":
-                Log.d(TAG, "onStartCommand: 2" + sms);
                 Toast.makeText(MyService.this, "警报", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
         }
-        stopSelf();
-//        stopSelfResult(-1);
+        stopSelf();//结束当前Service
         return START_NOT_STICKY;
     }
 
+    /**
+     * 删除短信 貌似无法实现
+     */
     private void deleteSMS(String telnum) {
         Uri    uri    = Uri.parse("content://sms/inbox");
         Cursor cursor = getContentResolver().query(uri, null, "read=" + 0, null, null);
         while (cursor.moveToNext()) {
             String phone = cursor.getString(cursor.getColumnIndex("address")).trim();
-            Log.d(TAG, "deleteSMS:00phone "+phone);
             if (phone.equals(telnum)) {
                 long id = cursor.getLong(0);
-                Log.d(TAG, "deleteSMS:00id >>"+id);
-                int delete =getContentResolver()
-                        .delete(Telephony.Sms.CONTENT_URI, "_id="+id, null);
-                Log.d(TAG, "deleteSMS:000 delete>>"+delete);
+                int delete = getContentResolver()
+                        .delete(Telephony.Sms.CONTENT_URI, "_id=" + id, null);
             }
         }
         cursor.close();
@@ -84,6 +78,9 @@ public class MyService extends Service {
         super.onDestroy();
     }
 
+    /**
+     * 创建一个广播接收器 静态注册实现监听短信广播
+     */
     public static class MyReceiver extends BroadcastReceiver {
 
         String messageBody;
@@ -92,21 +89,21 @@ public class MyService extends Service {
         public void onReceive(Context context, Intent intent) {
             util = new MyActivity().new Util();
 //            TelephonyManager tm= (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
-            Bundle extras = intent.getExtras();
+            Bundle extras = intent.getExtras();//获取广播信息
             if (extras == null) {
                 return;
             }
             Object[] pdus = (Object[]) extras.get("pdus");
             for (Object pdu : pdus) {
-                SmsMessage message = SmsMessage.createFromPdu((byte[]) pdu);
-                String originatingAddress = message.getOriginatingAddress();//获取发送人号码
-                String   telnum = util.getTelnumber(context, "telnumber");
-                if (originatingAddress.equals(telnum)) {
+                SmsMessage message            = SmsMessage.createFromPdu((byte[]) pdu);
+                String     originatingAddress = message.getOriginatingAddress();//获取发送人号码
+                String     telnum             = util.getTelnumber(context, "telnumber");//获取绑定号码
+                if (originatingAddress.equals(telnum)) {//判断发送人和绑定号码是否一致
                     messageBody = message.getMessageBody();//获取短信内容
                     Intent intent1 = new Intent(context.getApplicationContext(), MyService.class);
                     intent1.putExtra("SMS", messageBody);
-                    context.startService(intent1);
-                    this.abortBroadcast();
+                    context.startService(intent1);//启动Service
+                    this.abortBroadcast();//中断广播>>>貌似也无法实现
                 }
 
             }

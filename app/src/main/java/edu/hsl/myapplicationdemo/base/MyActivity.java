@@ -1,4 +1,4 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.base;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,12 +9,14 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import edu.hsl.myapplicationdemo.util.WeatherUtil;
+
 /**
  * Created by Administrator on 2016/05/18.
  */
 public class MyActivity extends AppCompatActivity {
-    Util util = new Util();
-    static WeatherUtil mWeatherUtil;
+    public Util util = new Util();
+    public static WeatherUtil mWeatherUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class MyActivity extends AppCompatActivity {
 
     }
 
-    Handler handler = new Handler() {
+   public Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             myHandleMessage(msg);
@@ -61,7 +63,7 @@ public class MyActivity extends AppCompatActivity {
         finish();
     }
 
-    class Util {
+   public class Util {
         SharedPreferences preferences;
 
         public void putString(Context content, String key, String value) {

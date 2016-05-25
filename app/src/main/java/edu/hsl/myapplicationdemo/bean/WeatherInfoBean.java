@@ -1,24 +1,25 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.bean;
 
 /**
  * Created by Administrator on 2016/5/24.
+ * 一周天气
  */
 public class WeatherInfoBean {
-    String data;//日期
-    String weather_day;//天气
-    String temperature_day;//温度
-    String direct_day;//风向
-    String power_day;//风级
-    String sun_up;//太阳升起
-    String weather_night;//天气
-    String temperature_night;//温度
-    String direct_night;//风向
-    String power_night;//风级
-    String sun_down;//降落
-    String week;//星期
-    String moon;//农历日期
-    int    id_day;
-    int    id_night;
+    public String data;//日期
+    public String weather_day;//天气
+    public String temperature_day;//温度
+    public String direct_day;//风向
+    public String power_day;//风级
+    public String sun_up;//太阳升起
+    public String weather_night;//天气
+    public String temperature_night;//温度
+    public String direct_night;//风向
+    public String power_night;//风级
+    public String sun_down;//降落
+    public String week;//星期
+    public String moon;//农历日期
+    public int    id_day;
+    public int    id_night;
 
     public WeatherInfoBean(String data, String weather_day, String temperature_day,
                            String direct_day, String power_day, String sun_up,

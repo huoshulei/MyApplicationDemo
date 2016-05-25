@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#164e6c"
     android:orientation="vertical"
-    tools:context="edu.hsl.myapplicationdemo.WeatherWeekActivity">
+    tools:context=".activity.WeatherWeekActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

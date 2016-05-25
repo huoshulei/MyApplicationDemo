@@ -1,4 +1,4 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,17 +7,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import edu.hsl.myapplicationdemo.util.MD5Util;
+import edu.hsl.myapplicationdemo.base.MyActivity;
+import edu.hsl.myapplicationdemo.R;
+
 public class MainActivity extends MyActivity {
-    public static final String TAG = "dddd";
     boolean isforstload;
-    Util    util;
-    MD5Util md5;
+    Util    util;//工具
+    MD5Util md5;//加密
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,6 @@ public class MainActivity extends MyActivity {
         SharedPreferences preferences
                 = getSharedPreferences("isforstload", Context.MODE_PRIVATE);
         isforstload = preferences.getBoolean("is", true);
-        Log.d(TAG, "onCreate: " + isforstload);
         util = new Util();
         md5 = new MD5Util();
         assert btn_weather != null;
@@ -115,7 +116,6 @@ public class MainActivity extends MyActivity {
                     pwd = md5.encode(pwd);
                     util.putString(getApplicationContext(), name, pwd);
                     dialog.dismiss();
-                    Log.d(TAG, "onClick: 000///" + pwd);
                     Toast.makeText(getApplicationContext(), "注册成功" + pwd, Toast.LENGTH_SHORT).show();
                     startActivity(Sjfd1Activity.class);
                 } else {
@@ -145,8 +145,6 @@ public class MainActivity extends MyActivity {
                 String pwd  = editText_pwd.getText().toString().trim();
                 pwd = md5.encode(pwd);
                 String pwds = util.getString(getApplicationContext(), name);
-                Log.d(TAG, "onClick: " + pwd);
-                Log.d(TAG, "onClick: " + pwds);
                 if (name == null || name.equals("")) {
                     Toast.makeText(getApplicationContext(), "用户名不能为空", Toast.LENGTH_SHORT).show();
                     return;
@@ -174,7 +172,6 @@ public class MainActivity extends MyActivity {
         SharedPreferences        preferences = getSharedPreferences("isforstload", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor      = preferences.edit();
         editor.putBoolean("is", false);
-        Log.d(TAG, "baocun: 12");
         editor.commit();
     }
 

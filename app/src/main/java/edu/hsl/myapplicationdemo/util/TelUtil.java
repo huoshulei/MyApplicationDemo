@@ -1,25 +1,24 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.util;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/05/19.
+ * 读取手机电话本信息
  */
-public class TelInfo {
-    public static final String TAG = "dddddddd";
+public class TelUtil {
     String             name;
     String             tel_num;
-    ArrayList<TelInfo> data;
+    ArrayList<TelUtil> data;
 
-    public TelInfo() {
+    public TelUtil() {
     }
 
-    public TelInfo(String name, String tel_num) {
+    public TelUtil(String name, String tel_num) {
         this.name = name;
         this.tel_num = tel_num;
     }
@@ -31,33 +30,21 @@ public class TelInfo {
     public String getTel_num() {
         return tel_num;
     }
-//
-//    public List<TelInfo> getData() {
-//        data = new ArrayList<>();
-//        data.add(new TelInfo("蔡伟", "110"));
-//        data.add(new TelInfo("蔡伟", "111"));
-//        data.add(new TelInfo("蔡伟", "112"));
-//        data.add(new TelInfo("蔡伟", "113"));
-//        data.add(new TelInfo("蔡伟", "114"));
-//        data.add(new TelInfo("蔡伟", "115"));
-//        data.add(new TelInfo("蔡伟", "116"));
-//        return data;
-//    }
 
-    public ArrayList<TelInfo> getData(Context context) {
-        Log.d(TAG, "getData:1 " + name);
+    public ArrayList<TelUtil> getData(Context context) {
         data = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI,
                 null, null, null, null);
         int telid  = 0;
         int nameid = 0;
         assert cursor != null;
+        //取得姓名和_ID对应的index
         if (cursor.getCount() > 0) {
             telid = cursor.getColumnIndex(ContactsContract.Contacts._ID);
             nameid = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
         }
+        //根据index获取对应的姓名和_id
         while (cursor.moveToNext()) {
-            Log.d(TAG, "getData:2 " + name);
             String name   = cursor.getString(nameid);
             String telnum = cursor.getString(telid);
             Cursor phones = context.getContentResolver()
@@ -67,8 +54,8 @@ public class TelInfo {
                             null, null);
             int phoneid = 0;
             assert phones != null;
+            //获得电话号码对应的index
             if (phones.getCount() > 0) {
-                Log.d(TAG, "getData:3 " + name);
                 phoneid = phones
                         .getColumnIndex(ContactsContract
                                 .CommonDataKinds.Phone.NUMBER);
@@ -76,12 +63,10 @@ public class TelInfo {
             String number = null;
             while (phones.moveToNext()) {
                 number = phones.getString(phoneid);
-                TelInfo info = new TelInfo(name, number);
+                TelUtil info = new TelUtil(name, number);
                 data.add(info);
-                Log.d(TAG, "getData:4 " + name);
             }
 
-//            phones.close();
         }
         cursor.close();
         return data;

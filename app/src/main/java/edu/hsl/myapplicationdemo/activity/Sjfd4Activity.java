@@ -1,9 +1,15 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.activity;
 
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
+import edu.hsl.myapplicationdemo.base.MyActivity;
+import edu.hsl.myapplicationdemo.R;
+
+/**
+ * 是否开启防盗功能
+ */
 public class Sjfd4Activity extends MyActivity {
     boolean      isopen;
     CheckBox     cb_open;

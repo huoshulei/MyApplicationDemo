@@ -1,11 +1,10 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,14 +14,21 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import edu.hsl.myapplicationdemo.base.MyActivity;
+import edu.hsl.myapplicationdemo.adapter.MyAdapter;
+import edu.hsl.myapplicationdemo.R;
+import edu.hsl.myapplicationdemo.util.TelUtil;
+
+/**
+ * 绑定手机号码
+ */
 public class Sjfd3Activity extends MyActivity {
-    public static final String TAG = "ddddddddddddddddddddddd";
     Button        btn_txl;
     Button        btn_txl1;
     EditText      et_telnum;
     String        et_num;
-    List<TelInfo> data;
-    TelInfo       info;
+    List<TelUtil> data;
+    TelUtil       info;
     ListView      lv_tel;
     MyAdapter     adapter;
 
@@ -39,36 +45,41 @@ public class Sjfd3Activity extends MyActivity {
         if (!TextUtils.isEmpty(util.getString(getApplicationContext(), "telnumber"))) {
             et_telnum.setHint(util.getString(getApplicationContext(), "telnumber"));
         }
-        info = new TelInfo();
+        info = new TelUtil();
         data = info.getData(getApplicationContext());
         Toast.makeText(getApplicationContext(), "ddddddd" + data.size(), Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "initData: " + data.size());
     }
 
+    /**
+     * 弹出view选择本机号码绑定
+     */
     @Override
     public void initEvent() {
         btn_txl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //创建一个弹窗
                 AlertDialog.Builder builder = new AlertDialog.Builder(Sjfd3Activity.this);
+                //关联一个view
                 View view = View.inflate(getApplicationContext(),
                         R.layout.layout_view_tel, null);
                 lv_tel = (ListView) view.findViewById(R.id.lv_tel);
                 adapter = new MyAdapter(getApplicationContext(), data);
                 lv_tel.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-                builder.setView(view);
+                builder.setView(view);//关联一个view到builder
                 final AlertDialog dialog = builder.show();
                 lv_tel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        et_telnum.setText(adapter.getItem(position).getTel_num());
+                        et_telnum.setText(adapter.getItem(position).getTel_num());//set号码
                         dialog.dismiss();
                     }
                 });
 
             }
         });
+        //调用系统电话本绑定
         btn_txl1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +89,9 @@ public class Sjfd3Activity extends MyActivity {
         });
     }
 
+    /**
+     * 保存并跳转
+     */
     @Override
     public void initNext(View view) {
         et_num = et_telnum.getText().toString();
@@ -90,6 +104,9 @@ public class Sjfd3Activity extends MyActivity {
         startActivity(Sjfd2Activity.class);
     }
 
+    /**
+     * 系统电话本进行绑定
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

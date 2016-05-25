@@ -1,20 +1,20 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.bean;
 
 /**
  * Created by Administrator on 2016/5/24.
  */
 public class WeatherBean {
-    String direct;//风向
-    String power;//风级
-    String time;//更新时间
-    String humidity;//湿度
-    String weather;//天气
-    String temperature;//温度
-    String date;//日期
-    String city_name;//地区
-    String week;//星期
-    String moon;//农历日期
-    int    id;
+    public String direct;//风向
+    public String power;//风级
+    public String time;//更新时间
+    public String humidity;//湿度
+    public String weather;//天气
+    public String temperature;//温度
+    public String date;//日期
+    public String city_name;//地区
+    public String week;//星期
+    public String moon;//农历日期
+    public int    id;
 
     public WeatherBean(String direct, String power, String time, String humidity,
                        String weather, String temperature, String data, String city_name,

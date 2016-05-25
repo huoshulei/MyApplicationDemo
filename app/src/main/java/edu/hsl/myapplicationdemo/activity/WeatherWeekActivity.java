@@ -1,8 +1,16 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.activity;
 
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import edu.hsl.myapplicationdemo.base.MyActivity;
+import edu.hsl.myapplicationdemo.R;
+import edu.hsl.myapplicationdemo.bean.WeatherInfoBean;
+import edu.hsl.myapplicationdemo.util.ImageUtil;
+
+/**
+ * 一周天气详细信息
+ */
 public class WeatherWeekActivity extends MyActivity {
     TextView  date;//日期
     TextView  weather_day;//天气
@@ -24,7 +32,7 @@ public class WeatherWeekActivity extends MyActivity {
     @Override
     public void initVeiw() {
         setContentView(R.layout.activity_weather_week);
-        id = getIntent().getIntExtra("id", 0);
+        id = getIntent().getIntExtra("id", 0);//获取对应天气item的id值
         date = (TextView) findViewById(R.id.tv_date);//日期
         weather_day = (TextView) findViewById(R.id.tv_weather_day);//天气
         temperature_day = (TextView) findViewById(R.id.tv_temperature_day);

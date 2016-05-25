@@ -1,6 +1,9 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.activity;
 
 import android.view.View;
+
+import edu.hsl.myapplicationdemo.base.MyActivity;
+import edu.hsl.myapplicationdemo.R;
 
 public class Sjfd1Activity extends MyActivity {
 

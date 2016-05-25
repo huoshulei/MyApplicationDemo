@@ -1,4 +1,4 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,12 +9,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import edu.hsl.myapplicationdemo.R;
+import edu.hsl.myapplicationdemo.util.TelUtil;
+
 /**
  * Created by Administrator on 2016/05/19.
+ * 绑定电话号码适配器
  */
 public class MyAdapter extends BaseAdapter {
     LayoutInflater inflater;
-    List<TelInfo>  data;
+    List<TelUtil>  data;
 
     public MyAdapter(Context context, List data) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -27,7 +31,7 @@ public class MyAdapter extends BaseAdapter {
     }
 
     @Override
-    public TelInfo getItem(int position) {
+    public TelUtil getItem(int position) {
         return data.get(position);
     }
 

@@ -1,16 +1,16 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.bean;
 
 /**
  * Created by Administrator on 2016/5/24.
  */
 public class PM25Bean {
-    String city_name;
-    String dateTime;
-    String curPm;//污染指数
-    String pm25;
-    String pm10;
-    String quality;//污染等级
-    String des;
+    public String city_name;//城市
+    public String dateTime;//发布时间
+    public String curPm;//污染指数
+    public String pm25;
+    public String pm10;
+    public String quality;//污染等级
+    public String des;//详细介绍
 
     public PM25Bean(String city_name, String dateTime, String curPm, String pm25,
                     String pm10, String quality, String des) {

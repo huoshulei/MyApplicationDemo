@@ -1,4 +1,4 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.activity;
 
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -6,6 +6,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import edu.hsl.myapplicationdemo.adapter.LifeAdapter;
+import edu.hsl.myapplicationdemo.bean.LifeBean;
+import edu.hsl.myapplicationdemo.base.MyActivity;
+import edu.hsl.myapplicationdemo.bean.PM25Bean;
+import edu.hsl.myapplicationdemo.R;
+import edu.hsl.myapplicationdemo.bean.WeatherBean;
+import edu.hsl.myapplicationdemo.util.ImageUtil;
+
+/**
+ * 实时天气数据 天气主页
+ */
 public class RealTimeWeatherActivity extends MyActivity {
     ListView       lv_life;
     TextView       tv_direct;//风向

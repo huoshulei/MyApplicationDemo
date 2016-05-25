@@ -1,6 +1,4 @@
-package edu.hsl.myapplicationdemo;
-
-import android.util.Log;
+package edu.hsl.myapplicationdemo.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -9,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
  * Created by Administrator on 2016/05/17.
  */
 public class MD5Util {
-    public static final String TAG = "dddd";
     StringBuffer sb;
 
     private String getMd5(String pwd) {
@@ -28,10 +25,12 @@ public class MD5Util {
 
             e.printStackTrace();
         }
-        Log.d(TAG, "getMd5: 000000000000..." + sb);
         return sb + "d";
     }
 
+    /**
+     * 重复加密
+     */
     public String encode(String pwd) {
         sb = new StringBuffer();
         return getMd5(getMd5(pwd));

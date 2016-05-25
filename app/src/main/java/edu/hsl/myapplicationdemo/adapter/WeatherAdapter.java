@@ -1,4 +1,4 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import edu.hsl.myapplicationdemo.R;
+import edu.hsl.myapplicationdemo.bean.WeatherInfoBean;
+
 /**
  * Created by Administrator on 2016/5/24.
+ * 天气适配器
  */
 public class WeatherAdapter extends BaseAdapter {
     LayoutInflater        inflater;

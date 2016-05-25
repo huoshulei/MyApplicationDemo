@@ -1,10 +1,9 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.util;
 //c8e95327158622fea81a828a45fca513/key
 //聚合0fdb111d480794e6a0c6f1bdbfba2188/key
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,37 +18,42 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hsl.myapplicationdemo.LifeBean;
-import edu.hsl.myapplicationdemo.PM25Bean;
-import edu.hsl.myapplicationdemo.WeatherBean;
-import edu.hsl.myapplicationdemo.WeatherInfoBean;
+import edu.hsl.myapplicationdemo.bean.LifeBean;
+import edu.hsl.myapplicationdemo.bean.PM25Bean;
+import edu.hsl.myapplicationdemo.bean.WeatherBean;
+import edu.hsl.myapplicationdemo.bean.WeatherInfoBean;
 
 /**
  * Created by Administrator on 2016/5/23.
+ * 获取网络数据 并解析
  */
 public class WeatherUtil {
-    public static final  String APPKEY = "0fdb111d480794e6a0c6f1bdbfba2188";
-    private static final String TAG = "WeatherUtil";
+    public static final String APPKEY = "0fdb111d480794e6a0c6f1bdbfba2188";
+
     public WeatherUtil(String city_name) {
         getRequest(city_name);
     }
 
+    /**
+     * 根据城市名获取天气数据
+     */
     private String getRequest(String cityname) {
         String            rs            = null;
         BufferedReader    reader        = null;
         StringBuffer      sb            = new StringBuffer();
         HttpURLConnection urlConnection = null;
         String            url           = "http://op.juhe.cn/onebox/weather/query?";
+        //拼接URL
         String uri = Uri.parse(url).buildUpon()
-                .appendQueryParameter("cityname", cityname)
-                .appendQueryParameter("dtype", "")
-                .appendQueryParameter("key", APPKEY)
+                .appendQueryParameter("cityname", cityname)//城市名
+                .appendQueryParameter("dtype", "")//返回数据类型
+                .appendQueryParameter("key", APPKEY)//APIKEY
                 .build().toString();
         try {
             URL url1 = new URL(uri);
-            urlConnection = (HttpURLConnection) url1.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setConnectTimeout(5000);
+            urlConnection = (HttpURLConnection) url1.openConnection();//获取网络数据
+            urlConnection.setRequestMethod("GET");//请求类型
+            urlConnection.setConnectTimeout(5000);//超时时间
             urlConnection.connect();
             InputStream in = urlConnection.getInputStream();
 
@@ -59,8 +63,6 @@ public class WeatherUtil {
                 sb.append(strRead).append("\n");
             }
             rs = sb.toString();
-            Log.d(TAG, "getRequest: "+rs);
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -84,16 +86,19 @@ public class WeatherUtil {
     private static JSONArray  jsonWeather;
     private static JSONObject jsonPM25;
 
+    /**
+     * 初步解析json数据
+     */
     private void getWeatherDataFromJson(String jsonStr, String cityname) {
         try {
             JSONObject json = new JSONObject(jsonStr);
 
-            String     str  = json.getString("reason");
-            int        code = json.getInt("error_code");
-            if (str.equals("成功") || str.equals("successed!") || code == 0) {
-                JSONObject jsonResult = json.getJSONObject("result");
+            String str  = json.getString("reason");
+            int    code = json.getInt("error_code");
+            if (str.equals("成功") || str.equals("successed!") || code == 0) {//判断获取数据是否成功
+                JSONObject jsonResult = json.getJSONObject("result");//json返回数据
                 //            JSONObject jsonRealTime=new JSONObject(jsonData.getString("data"));
-                JSONObject jsonData = jsonResult.getJSONObject("data");
+                JSONObject jsonData = jsonResult.getJSONObject("data");//json返回数据
                 jsonRealTime = jsonData.getJSONObject("realtime");//实时数据
                 jsonLife = jsonData.getJSONObject("life");//生活指数
                 jsonWeather = jsonData.getJSONArray("weather");//一周天气
@@ -105,6 +110,9 @@ public class WeatherUtil {
         }
     }
 
+    /**
+     * 解析PM25详细数据
+     */
     public PM25Bean getJsonPM25() {
         String city_name = null;
         String date_time = null;
@@ -130,9 +138,12 @@ public class WeatherUtil {
         return bean;
     }
 
+    /**
+     * 解析一周天气详细数据
+     */
     public List<WeatherInfoBean> getJsonWeather() {
-        List<WeatherInfoBean> bean = new ArrayList<>();
-        for (int i = 0; i < jsonWeather.length(); i++) {
+        List<WeatherInfoBean> bean = new ArrayList<>();//读取一周天气集合
+        for (int i = 0; i < jsonWeather.length(); i++) {//for循环遍历读取信息
             String date              = null;
             String weather_day       = null;//天气
             String temperature_day   = null;//温度
@@ -144,8 +155,8 @@ public class WeatherUtil {
             String direct_night      = null;//风向
             String power_night       = null;//风级
             String sun_down          = null;//降落
-            String week              = null;
-            String moon              = null;
+            String week              = null;//星期
+            String moon              = null;//农历
             int    id_day            = -1;
             int    id_night          = -1;
             try {
@@ -179,6 +190,9 @@ public class WeatherUtil {
         return bean;
     }
 
+    /**
+     * 解析生活指数详细数据
+     */
     public List<LifeBean> getJsonLife() {
         LifeBean       lifeBean;
         List<LifeBean> bean      = new ArrayList<>();
@@ -217,6 +231,9 @@ public class WeatherUtil {
         return bean;
     }
 
+    /**
+     * 根据KEY 获取生活指数详细信息
+     */
     @NonNull
     private LifeBean getString(String key) throws JSONException {
         LifeBean   bean;
@@ -226,16 +243,19 @@ public class WeatherUtil {
         return bean;
     }
 
+    /**
+     * 读取实时数据
+     */
     public WeatherBean getRealTime() {
         String time        = null;
         String data        = null;
         String city_name   = null;
         String week        = null;
-        String moon        = null;
+        String moon        = null;//农历
         String direct      = null;
         String power       = null;
         String humidity    = null;
-        String info        = null;
+        String info        = null;//天气
         String temperature = null;
         int    id          = -1;
         try {
@@ -261,6 +281,9 @@ public class WeatherUtil {
         return bean;
     }
 
+    /**
+     * 根据获得星期的小写转换大写
+     */
     private String getWeek(Object week_object) {
         String week = null;
         if (week_object instanceof Integer) {

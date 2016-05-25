@@ -1,4 +1,4 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import edu.hsl.myapplicationdemo.bean.LifeBean;
+import edu.hsl.myapplicationdemo.R;
+
 /**
  * Created by Administrator on 2016/5/24.
+ * 生活指数适配器
  */
 public class LifeAdapter extends BaseAdapter {
     LayoutInflater inflater;

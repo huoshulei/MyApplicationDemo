@@ -1,4 +1,4 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.activity;
 
 import android.content.Intent;
 import android.os.Message;
@@ -10,6 +10,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+
+import edu.hsl.myapplicationdemo.util.ImageUtil;
+import edu.hsl.myapplicationdemo.base.MyActivity;
+import edu.hsl.myapplicationdemo.R;
+import edu.hsl.myapplicationdemo.adapter.WeatherAdapter;
+import edu.hsl.myapplicationdemo.bean.WeatherBean;
+import edu.hsl.myapplicationdemo.bean.WeatherInfoBean;
+import edu.hsl.myapplicationdemo.util.WeatherUtil;
 
 public class WeatherActivity extends MyActivity {
 
@@ -48,6 +56,9 @@ public class WeatherActivity extends MyActivity {
 
     }
 
+    /**
+     * 更新UI
+     */
     @Override
     protected void myHandleMessage(Message msg) {
 
@@ -83,6 +94,7 @@ public class WeatherActivity extends MyActivity {
 
     @Override
     protected void onResume() {
+        //new 一个线程进网络访问
         new Thread() {
             @Override
             public void run() {
@@ -113,6 +125,7 @@ public class WeatherActivity extends MyActivity {
             }
         });
         lv_weather.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**根据点击item的id进行传参跳转*/
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(WeatherActivity.this, WeatherWeekActivity.class);

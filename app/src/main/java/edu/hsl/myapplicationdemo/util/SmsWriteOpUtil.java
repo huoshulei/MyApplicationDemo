@@ -1,4 +1,4 @@
-package edu.hsl.myapplicationdemo;
+package edu.hsl.myapplicationdemo.util;
 
 import android.app.AppOpsManager;
 import android.content.Context;
@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 
 /**
  * Created by Administrator on 2016/5/22.
+ * 读取SMS卡信息 ,复制的
  */
 
 
@@ -98,7 +99,7 @@ public final class SmsWriteOpUtil {
     private static int getUid(Context context) {
         try {
             int uid = context.getPackageManager().getApplicationInfo(
-                    context.getPackageName(), PackageManager.GET_META_DATA).uid;
+                    context.getPackageName(), PackageManager.GET_META_DATA).uid;//此处使用下一行
 //                        context.getPackageName(), PackageManager.GET_SERVICES).uid;
 
             return uid;

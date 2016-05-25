@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="edu.hsl.myapplicationdemo.WeatherActivity">
+    tools:context=".activity.WeatherActivity">
 
     <RelativeLayout
         android:id="@+id/rl_real"

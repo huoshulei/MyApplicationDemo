@@ -16,39 +16,39 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Sjfd1Activity">
+        <activity android:name=".activity.Sjfd1Activity">
         </activity>
-        <activity android:name=".Sjfd2Activity">
+        <activity android:name=".activity.Sjfd2Activity">
         </activity>
-        <activity android:name=".Sjfd3Activity">
+        <activity android:name=".activity.Sjfd3Activity">
         </activity>
-        <activity android:name=".Sjfd4Activity">
+        <activity android:name=".activity.Sjfd4Activity">
         </activity>
 
         <service
-            android:name=".MyService"
+            android:name=".service.MyService"
             android:enabled="true"
             android:exported="true">
         </service>
 
-        <receiver android:name=".MyService$MyReceiver">
+        <receiver android:name=".service.MyService$MyReceiver">
             <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
         </receiver>
 
-        <activity android:name=".WeatherActivity">
+        <activity android:name=".activity.WeatherActivity">
         </activity>
-        <activity android:name=".RealTimeWeatherActivity">
+        <activity android:name=".activity.RealTimeWeatherActivity">
         </activity>
-        <activity android:name=".WeatherWeekActivity">
+        <activity android:name=".activity.WeatherWeekActivity">
         </activity>
     </application>
 
